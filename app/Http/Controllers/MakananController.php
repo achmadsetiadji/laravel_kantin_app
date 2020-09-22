@@ -133,7 +133,7 @@ class MakananController extends Controller
     public function pdfpreviewmakanan(Request $request)
     {
         $makanans = Makanan::all();
-        $pdf = PDF::loadView('makanan/pdfpreview', compact('makanans'));
+        $pdf = 'PDF'::loadView('makanan/pdfpreview', compact('makanans'));
         return $pdf->stream();
     }
 }

@@ -46,7 +46,7 @@ $(document).ready(function () {
                     </button>
                 </span>
             </div>
-            <p class="col-3">Rp ${currentOrder[i]['price']}</p>
+            <p class="col-3">Rp. ${currentOrder[i]['price']}</p>
             </div>
             `
             $('#current-order').append(component)
@@ -76,7 +76,7 @@ $(document).ready(function () {
             success: function (msg) {
                 console.log(msg)
                 alert('berhasil')
-                // window.location.reload();
+                window.location.reload();
             },
             error: function (msg) {
                 console.log(msg)

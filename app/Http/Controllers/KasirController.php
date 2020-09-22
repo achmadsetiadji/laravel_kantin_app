@@ -112,7 +112,7 @@ class KasirController extends Controller
     public function orderanpdf(Request $request)
     {
         $transaksi = Transaksi::with('detailorder')->get();
-        $pdf = PDF::loadView('transaksi.orderpdf', compact('transaksi'));
+        $pdf = 'PDF'::loadView('transaksi.orderpdf', compact('transaksi'));
         return $pdf->stream();
     }
 }

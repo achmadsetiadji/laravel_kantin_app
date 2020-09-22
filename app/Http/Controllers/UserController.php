@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\User;
 use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -48,7 +54,7 @@ class UserController extends Controller
             'level' => $request->level,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password
+            'password' => Hash::make($request->password)
         ]);
         return redirect('/user')->with('status', 'Data ' . $request->name . ' Berhasil Ditambahkan!');
     }
@@ -93,10 +99,10 @@ class UserController extends Controller
 
         User::where('id_user', $user->id_user)
             ->update([
-            'level' => $request->level,
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password
+                'level' => $request->level,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
             ]);
         return redirect('/user')->with('status', 'Data ' . $request->name . ' Berhasil Diubah!');
     }
@@ -109,14 +115,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        User::destroy($user->id);
+        User::destroy($user->id_user);
         return redirect('/user')->with('statusDelete', 'Data Berhasil Dihapus!');
     }
 
     public function pdfpreviewuser(Request $request)
     {
         $users = User::all();
-        $pdf = PDF::loadView('user/pdfpreview', compact('users'));
+        $pdf = 'PDF'::loadView('user/pdfpreview', compact('users'));
         return $pdf->stream();
     }
 }
